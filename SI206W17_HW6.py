@@ -28,7 +28,7 @@ class Student():
         return "My name is {}, and I've been at UMich for about {} years. I got {} bonus_points and I have written {} programs while here.".format(self.name, self.years_UM, self.bonus_points, self.num_programs)
 
     def year_at_umich(self):
-        return this_Student.years_UM
+        return self.years_UM
 
     # Define the additional method here
     def write_programs(self, int_in=1):
@@ -88,50 +88,71 @@ programs_written = [10, 500, 20, 131, 46]
 ## End provided code
 
 # Given that provided code, write one line of code to create a zip iterator instance saved in a variable called student_tups, here:
-
+student_tups = zip(names, seniority, programs_written)
 
 # Then write a line of code to cast the iterator to a list (it should end up as a list of tuples). Save that list in a variable called student_tups_list.
-
+student_tups_list = list(student_tups)
 
 ## You can test this out with any code you like here, and similar below other problems, but make sure to comment out any code that uses up the iterator in order to pass the tests!
-    
-
+'''
+print(names)
+print(seniority)
+print(programs_written)
+print(student_tups_list)    
+'''
 
 ## [PROBLEM 5]
 print("\n\n***** Problem 5 *****")
-# Use a list comprehension to create a list of Student instances out of the student_tups list you just created in Problem 2, and save that list in a variable called programmers. You should make sure you pass these tests before continuing, as you'll need this list for problems later on!
+# Use a list comprehension to create a list of Student instances out of the student_tups list you just created in Problem 2, and save that list in a variable
+# called programmers. You should make sure you pass these tests before continuing, as you'll need this list for problems later on!
 
-
+#programmers = []
+#for maBoi in student_tups_list:
+#    programmers.append(Student(maBoi[0]))
+programmers = [Student(maBoi[0], maBoi[1], maBoi[2]) for maBoi in student_tups_list]
 
 ## [PROBLEM 6]
 print("\n\n***** Problem 6 *****")
 
 # A Student's programming_productivity is defined as that student's number of programs written divided by the years they have been at UMich.
 
-# Use the Python map function on the programmers list you just created, in order to create an map instance iterator of numbers representing the productivity of each student. Save the map iterator in a variable called prod_iter.
+# Use the Python map function on the programmers list you just created, in order to create an map instance iterator of numbers representing the productivity
+# of each student. Save the map iterator in a variable called prod_iter.
+def getProductivity(maBoi):
+    return maBoi.num_programs / maBoi.year_at_umich()
+
+prod_iter = map(getProductivity, programmers)
 
 ## Write code to cast that iterator to a list. Save that list in the variable prod_list.
+prod_list = list(prod_iter)
 
-## You may add a method to the Student class if you wish in order to do this, but you do not need to. (If you do, make sure you do not create any syntax errors that keep code/tests from running!)
+## You may add a method to the Student class if you wish in order to do this, but you do not need to. (If you do, make sure you do not create any syntax errors 
+# that keep code/tests from running!)
 
 
 
 ## [PROBLEM 7]
 print("\n\n***** Problem 7 *****")
-# Create a list of tuples wherein each tuple has a student's name and productivity value. Save the list of tuples in a variable called names_and_productivities. To do this, you should use a list comprehension (you may also use the zip function, and you may use any variables you have already created).
+# Create a list of tuples wherein each tuple has a student's name and productivity value. Save the list of tuples in a variable called names_and_productivities.
+# To do this, you should use a list comprehension (you may also use the zip function, and you may use any variables you have already created).
 
 ## But be careful that if you use answers from previous problems, you use the LISTs you generated, so that all your tests can still pass and you avoid confusion!
 
+names_and_productivities = list(zip(names, prod_list))
 
 
 ## [PROBLEM 8]
 print("\n\n***** Problem 8 *****")
-# Use the Python filter function to select the subset of programmers who have names with 5 or more characters. (i.e. ["Albert","Dinesh","Euijin"]) Your result should be an filter object that points to Student instances. Save that filter iterator in a variable called long_names.
+# Use the Python filter function to select the subset of programmers who have names with 5 or more characters. (i.e. ["Albert","Dinesh","Euijin"]) 
+# Your result should be an filter object that points to Student instances. Save that filter iterator in a variable called long_names.
+
+def filterFunc(yaBoi):
+    return len(yaBoi.name) >= 5
+long_names = filter(filterFunc, programmers)
 
 
-
-## Then write code to cast the value of long_names to a list and save it in the variable long_names_list. 
-
+## Then write to cast the value of long_names to a list and save it in the variable long_names_list. 
+long_names_list = list(long_names)
 
 
 ## [PROBLEM 9]
